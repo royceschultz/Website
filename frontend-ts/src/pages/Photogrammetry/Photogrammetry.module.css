@@ -1,0 +1,42 @@
+.Container {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: start; */
+    flex-start: start;
+    height: 100%;
+}
+
+.Browser {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: start; */
+    flex-start: start;
+    align-content: flex-start;
+    background-color:rgb(100, 100, 100);
+    user-select: none;
+}
+
+.BrowserButton {
+    padding: 5px;
+    margin: 2px;
+    background-color: rgb(71, 71, 71);
+    height: 100px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: solid 5px rgb(43, 42, 42);
+}
+
+.BrowserButton:hover {
+    background-color: rgb(44, 44, 44);
+}
+
+.BrowserButton img {
+    width: 50px;
+    height: 50px;
+}

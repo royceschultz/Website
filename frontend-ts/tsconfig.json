@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "allowJs": true,
+    // "checkJs": true,
+    "jsx": "react-jsx",
+
+    // Helpful docs on building with Vite:
+    // https://vitejs.dev/guide/features.html#typescript
+    // tsc is only used for checking, not building
+    // vite supports building typscript natively.
+    // "outDir": "build/",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+    },
+  },
+  "include": ["src", ".d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

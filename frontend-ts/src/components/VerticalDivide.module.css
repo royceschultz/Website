@@ -1,0 +1,8 @@
+.closed {
+    width: 0px !important;
+    transition: all 1s ease-in-out;
+}
+
+.isOpen {
+    /* transition: width 1s ease-in-out; */
+}
