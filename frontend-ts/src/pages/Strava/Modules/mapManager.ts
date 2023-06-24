@@ -7,9 +7,6 @@ if (!mapboxgl.accessToken) {
     throw new Error('Mapbox token not found. Please set it in .env file.')
 }
 
-console.log('mapboxgl.accessToken', mapboxgl.accessToken)
-console.log('meta', import.meta.env)
-
 export const initMap = (container_id='mapbox') => {
     console.log('Initializing map')
     const map = new mapboxgl.Map({
