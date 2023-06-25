@@ -56,7 +56,7 @@ function STLRender({stlUrl, ...props}) {
                 renderer.dispose()
             }
         }
-    }, [canvasRef])
+    }, [canvasRef, containerRef])
 
     useEffect(() => {
         STLMeshManager.loadSTL('main', stlUrl)
