@@ -1,5 +1,5 @@
 let started = false;
-let stopAnimate_flag = false
+let stopAnimate_flag = true
 let pauseAnimate_flag = false
 let animations = {}
 
@@ -36,6 +36,7 @@ export const startAnimate = () => {
 
 export const restartAnimate = () => {
     console.log('restarting animate')
+    console.log('stopAnimate_flag', stopAnimate_flag)
     if (!stopAnimate_flag) return
     stopAnimate_flag = false
     pauseAnimate_flag = false
