@@ -74,8 +74,13 @@ module "lambda_function" {
   description   = "My awesome lambda function"
   handler       = "index.lambda_handler"
   runtime       = "python3.8"
+  cloudwatch_logs_retention_in_days = 5
 
   source_path = "../lambda"
+  build_in_docker   = true
+  docker_file       = "../lambda/dockerfile"
+  docker_build_root = "../lambda"
+  docker_image      = "public.ecr.aws/sam/build-python3.8"
 
 
   tags = {
@@ -116,7 +121,7 @@ module "api_gateway" {
   # Routes and integrations
   integrations = {
 
-    "ANY /" = {
+    "$default" = {
       lambda_arn = module.lambda_function.lambda_function_arn
       timeout_milliseconds   = 12000
     }
@@ -129,7 +134,7 @@ module "api_gateway" {
 
 resource "aws_cloudwatch_log_group" "yada" {
   name = "Yada"
-
+  retention_in_days = 5
   tags = {
     Environment = "production"
     Application = "serviceA"

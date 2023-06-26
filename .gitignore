@@ -1,5 +1,6 @@
 .DS_Store
 *.local*
+*/__pycache__
 
 # Terraform ignore
 # Local .terraform directories
@@ -32,4 +33,4 @@ override.tf.json
 terraform.rc
 
 # Misc
-*.terraform.lock.hcl
+terraform/builds/*
