@@ -77,7 +77,61 @@ module "lambda_function" {
 
   source_path = "../lambda"
 
+
   tags = {
     Name = "my-lambda1"
+  }
+
+  # publish = true # Uncomment when updating allowed_triggers
+  allowed_triggers = {
+    AllowExecutionFromAPIGateway = {
+      service    = "apigateway"
+      source_arn = "${module.api_gateway.apigatewayv2_api_execution_arn}/*/*"
+    }
+  }
+}
+
+module "api_gateway" {
+  source = "terraform-aws-modules/apigateway-v2/aws"
+
+  name          = "dev-http"
+  description   = "My awesome HTTP API Gateway"
+  protocol_type = "HTTP"
+
+  cors_configuration = {
+    allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
+    allow_methods = ["*"]
+    allow_origins = ["*"]
+  }
+
+  # Custom domain
+  # domain_name                 = local.domain_name
+  # domain_name_certificate_arn = module.acm.acm_certificate_arn
+  create_api_domain_name     = false # Disable custom domain
+
+  # Access logs
+  default_stage_access_log_destination_arn = aws_cloudwatch_log_group.yada.arn
+  default_stage_access_log_format          = "$context.identity.sourceIp - - [$context.requestTime] \"$context.httpMethod $context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId $context.integrationErrorMessage"
+
+  # Routes and integrations
+  integrations = {
+
+    "ANY /" = {
+      lambda_arn = module.lambda_function.lambda_function_arn
+      timeout_milliseconds   = 12000
+    }
+  }
+
+  tags = {
+    Name = "http-apigateway"
+  }
+}
+
+resource "aws_cloudwatch_log_group" "yada" {
+  name = "Yada"
+
+  tags = {
+    Environment = "production"
+    Application = "serviceA"
   }
 }
