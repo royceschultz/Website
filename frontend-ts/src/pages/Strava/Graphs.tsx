@@ -27,7 +27,7 @@ export default function Graphs(){
                 Distance
             </div>
         </div>
-        <ReactPlot title='Elevation' xField={xField} yField='ele' color='rgb(38, 32, 130)'/>
+        {/* <ReactPlot title='Elevation' xField={xField} yField='ele' color='rgb(38, 32, 130)'/> */}
         <ReactPlot title='Speed' xField={xField} yField='speed' color='rgb(38, 32, 130)' />
         <ReactPlot title='Power' xField={xField} yField='power' color='rgb(95,54,196)' />
         <ReactPlot title='Heartrate' xField={xField} yField='hr' color='rgb(179,39,66)' />

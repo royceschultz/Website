@@ -39,21 +39,18 @@ export default function VerticalDivide({left, right, ...props}: PropsType): JSX.
 
     return <div className='h-full w-full flex flex-row'>
         <div
-            className={`${props.closeLeft?styles.closed:styles.isOpen}`}
+            className={`${props.closeLeft?styles.closed:styles.isOpen} overflow-y-scroll`}
             style={{
                 width: `${size}px`,
-                overflowY: 'scroll'
         }}>
             {left}
         </div>
         <div
             style={{
                 width: '10px',
-                backgroundColor: 'gray',
-                cursor: 'col-resize',
-                overflowY: 'scroll'
             }}
             onMouseDown={handleMouseDown}
+            className='pointer-events-auto bg-gray-400 cursor-col-resize overflow-y-scroll'
         />
         <div className='grow'>
             {right}

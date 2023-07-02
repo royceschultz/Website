@@ -38,6 +38,7 @@ export default function HighlightRoute(props:PropsType): JSX.Element {
         const minLon = Math.min(...lons)
         const maxLon = Math.max(...lons)
         const leftPadding = document.getElementById('graphDrawer')?.offsetWidth ?? 0
+        const bottomPadding = document.getElementById('elevationDrawer')?.offsetHeight ?? 0
 
         map.fitBounds([
             [minLon, minLat],
@@ -47,7 +48,7 @@ export default function HighlightRoute(props:PropsType): JSX.Element {
                 left: leftPadding + 20,
                 top: 20,
                 right: 20,
-                bottom: 20
+                bottom: bottomPadding + 20
             },
             linear: true,
         })

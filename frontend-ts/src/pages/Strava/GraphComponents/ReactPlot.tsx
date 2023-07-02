@@ -15,6 +15,7 @@ interface PropsType {
     title?: string,
     color?: string,
     children?: JSX.Element | JSX.Element[],
+    height?: number,
 }
 
 export default function ReactPlot({xField, yField, ...props}:PropsType):JSX.Element {
@@ -27,7 +28,7 @@ export default function ReactPlot({xField, yField, ...props}:PropsType):JSX.Elem
     } = globalContext.strava
 
     const [width, setWidth] = useState(640)
-    const height = 200
+    const height = props.height ?? 200
     const marginLeft = 40
     const marginRight = 30
     const marginTop = 40
@@ -151,7 +152,10 @@ export default function ReactPlot({xField, yField, ...props}:PropsType):JSX.Elem
                     return
                 }
                 if (dragging) {
-                    setHighlightRange((r) => [r[0], cursor])
+                    setHighlightRange((r) => {
+                        if (r == null) return null
+                        return [r[0], cursor]
+                    })
                 }
                 // Get mouse position relative to axes
                 const { left } = plotRef.current.getBoundingClientRect()

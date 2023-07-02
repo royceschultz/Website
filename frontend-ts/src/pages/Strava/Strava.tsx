@@ -6,9 +6,9 @@ import Graphs from './Graphs'
 import Map from './Map'
 import Summary from './Summary'
 import Toolbar from './Toolbar';
-import LeftDrawer from '@components/LeftDrawer';
-import DragableContainer from '@components/DragableContainer'
+import VerticalDivide from '@/components/VerticalDivide.js';
 import RouteManager from './RouteManager';
+import ReactPlot from './GraphComponents/ReactPlot';
 
 import { parseGPX } from './Modules/parseGPX.js'
 
@@ -67,19 +67,39 @@ export default function Strava(): JSX.Element {
         }
     }, [handleSetZoom])
 
-    return <div className='h-full relative'>
+    return <div id='StravaContainer' className='h-full relative'>
         <div className='relative flex-auto w-full h-full min-h-0'>
-            <LeftDrawer id='graphDrawer' closed={mode==='far_out'} defaultWidth={420}>
-                <div>
-                    <input type='file' onChange={handleFileChange} />
-                </div>
-                <RouteManager />
-                <Graphs />
-            </LeftDrawer>
             <Map />
-            <DragableContainer defaultLeft={420} defaultBottom={1}>
-                <Summary />
-            </DragableContainer>
+            <div id='PanelsContainer' className='absolute top-0 left-0 h-full w-full pointer-events-none'>
+                <VerticalDivide
+                    defaultSize={420}
+                    closeLeft={mode==='far_out'}
+                    left={<div id='graphDrawer' className='h-full w-full z-10 relative overflow-y-scroll pointer-events-auto'
+                    style={{
+                        backgroundColor: 'rgba(90, 90, 90, 0.80)',
+                    }}
+                    >
+                        <div>
+                            <input type='file' onChange={handleFileChange} />
+                        </div>
+                        <RouteManager />
+                        <Graphs />
+                    </div>}
+                    right={<div className='h-full w-full relative z-10'>
+                        <div className='w-fit pointer-events-auto'>
+                            <Summary />
+                        </div>
+                        <div id='elevationDrawer' className={`absolute bottom-0 w-full pointer-events-auto ${mode==='far_out'?'h-0':''}`}
+                            style={{
+                                backgroundColor: 'rgba(90, 90, 90, 0.80)'
+                            }}
+                        >
+                            <ReactPlot title='Elevation' xField={'time'} yField='ele' color='rgb(38, 32, 130)' height={120} />
+                        </div>
+                    </div>}
+                
+                />
+            </div>
             <div className='absolute top-0 right-0 pointer-events-auto'>
                 <Toolbar />
             </div>
